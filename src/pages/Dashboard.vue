@@ -30,7 +30,7 @@
     <div class="row">
       <div class="col-12">
         <chart-card
-          title="Users behavior"
+          :title= getBehavior()
           sub-title="24 Hours performance"
           :chart-data="usersChart.data"
           :chart-options="usersChart.options"
@@ -48,7 +48,7 @@
 
       <div class="col-md-6 col-12">
         <chart-card
-          title="Email Statistics"
+          :title=getPieChart()
           sub-title="Last campaign performance"
           :chart-data="preferencesChart.data"
           chart-type="Pie"
@@ -66,7 +66,7 @@
 
       <div class="col-md-6 col-12">
         <chart-card
-          title="2015 Sales"
+          :title=getLineGraph()
           sub-title="All products including Taxes"
           :chart-data="activityChart.data"
           :chart-options="activityChart.options"
@@ -96,40 +96,8 @@ export default {
    */
   data() {
     return {
-      statsCards: [
-        {
-          type: "warning",
-          icon: "ti-server",
-          title: "Capacity",
-          value: "105GB",
-          footerText: "Updated now",
-          footerIcon: "ti-reload",
-        },
-        {
-          type: "success",
-          icon: "ti-wallet",
-          title: "Revenue",
-          value: "$1,345",
-          footerText: "Last day",
-          footerIcon: "ti-calendar",
-        },
-        {
-          type: "danger",
-          icon: "ti-pulse",
-          title: "Errors",
-          value: "23",
-          footerText: "In the last hour",
-          footerIcon: "ti-timer",
-        },
-        {
-          type: "info",
-          icon: "ti-twitter-alt",
-          title: "Followers",
-          value: "+45",
-          footerText: "Updated now",
-          footerIcon: "ti-reload",
-        },
-      ],
+      statsCards: null,
+      userType: "eng",
       usersChart: {
         data: {
           labels: [
@@ -201,6 +169,256 @@ export default {
       },
     };
   },
+  mounted(){
+    this.getStats()
+  },
+  methods:{
+    getStats(){
+      console.log("called")
+      const userType = this.userType;
+      if(userType == "marketing"){
+      this.statsCards =  [
+        {
+          type: "warning",
+          icon: "ti-server",
+          title: "Email Conversion Rate",
+          value: "2%",
+          footerText: "Updated now",
+          footerIcon: "ti-reload",
+        },
+        {
+          type: "success",
+          icon: "ti-wallet",
+          title: "Notification Conversion Rate",
+          value: "4%",
+          footerText: "Last day",
+          footerIcon: "ti-calendar",
+        },
+        {
+          type: "danger",
+          icon: "ti-pulse",
+          title: "Google Ads Conversion Rate",
+          value: "2%",
+          footerText: "In the last hour",
+          footerIcon: "ti-timer",
+        },
+        {
+          type: "info",
+          icon: "ti-twitter-alt",
+          title: "Twitter Followers Increase",
+          value: "+1237",
+          footerText: "Updated now",
+          footerIcon: "ti-reload",
+        },
+      ]
+      } else if(userType == "sales"){
+        this.statsCards =  [
+        {
+          type: "warning",
+          icon: "ti-server",
+          title: "Students Enrolled",
+          value: "+123",
+          footerText: "Updated now",
+          footerIcon: "ti-reload",
+        },
+        {
+          type: "success",
+          icon: "ti-wallet",
+          title: "Alumni Fundraising",
+          value: "$4350",
+          footerText: "Last day",
+          footerIcon: "ti-calendar",
+        },
+        {
+          type: "danger",
+          icon: "ti-pulse",
+          title: "Student Leads Generated",
+          value: "+45",
+          footerText: "In the last hour",
+          footerIcon: "ti-timer",
+        },
+        {
+          type: "info",
+          icon: "ti-twitter-alt",
+          title: "Applications",
+          value: "+230",
+          footerText: "Updated now",
+          footerIcon: "ti-reload",
+        },
+      ]
+
+      } else if(userType == "product"){
+        this.statsCards =  [
+        {
+          type: "warning",
+          icon: "ti-server",
+          title: "Time Spent on Twitter:",
+          value: "150M UAM",
+          footerText: "Updated now",
+          footerIcon: "ti-reload",
+        },
+        {
+          type: "success",
+          icon: "ti-wallet",
+          title: "Monthly Active Users",
+          value: "237.2M",
+          footerText: "Last day",
+          footerIcon: "ti-calendar",
+        },
+        {
+          type: "danger",
+          icon: "ti-pulse",
+          title: "Social Engagements",
+          value: "+137.2M",
+          footerText: "In the last hour",
+          footerIcon: "ti-timer",
+        },
+        {
+          type: "info",
+          icon: "ti-twitter-alt",
+          title: "Spam Rate",
+          value: "4%",
+          footerText: "Updated now",
+          footerIcon: "ti-reload",
+        },
+      ]
+
+      } else if(userType == "eng"){
+        this.statsCards =  [
+        {
+          type: "warning",
+          icon: "ti-server",
+          title: "Server RAM Capacity",
+          value: "105GB",
+          footerText: "Updated now",
+          footerIcon: "ti-reload",
+        },
+        {
+          type: "success",
+          icon: "ti-wallet",
+          title: "Bugs Reported",
+          value: "457",
+          footerText: "Last day",
+          footerIcon: "ti-calendar",
+        },
+        {
+          type: "danger",
+          icon: "ti-pulse",
+          title: "Security Errors",
+          value: "2",
+          footerText: "In the last hour",
+          footerIcon: "ti-timer",
+        },
+        {
+          type: "info",
+          icon: "ti-twitter-alt",
+          title: "System Uptime",
+          value: "98.7%",
+          footerText: "Updated now",
+          footerIcon: "ti-reload",
+        },
+      ]
+
+      } else{ // should be e-commerce
+      this.statsCards =  [
+        {
+          type: "warning",
+          icon: "ti-server",
+          title: "Abandoned Cart Rate",
+          value: "40%",
+          footerText: "Updated now",
+          footerIcon: "ti-reload",
+        },
+        {
+          type: "success",
+          icon: "ti-wallet",
+          title: "Repeat Purchase Rate",
+          value: "23%",
+          footerText: "Last day",
+          footerIcon: "ti-calendar",
+        },
+        {
+          type: "danger",
+          icon: "ti-pulse",
+          title: "Items Refunded Rate",
+          value: "30%",
+          footerText: "In the last hour",
+          footerIcon: "ti-timer",
+        },
+        {
+          type: "info",
+          icon: "ti-twitter-alt",
+          title: "Avg Review Rating",
+          value: "3.9",
+          footerText: "Updated now",
+          footerIcon: "ti-reload",
+        },
+      ]
+
+      }
+
+    },
+    getBehavior(){
+   const userType = this.userType;
+      if(userType == "marketing"){
+          return "Pizza Orders by Channel (Last 24 Hours)"
+     
+      } else if(userType == "sales"){
+        return "Students Enrollment (By Department)"
+
+      } else if(userType == "product"){
+        return "Traffic by User Type (Time Spent)"
+
+      } else if(userType == "eng"){
+          return "Engineering Upkeep KPIs"
+
+      } else{ // should be e-commerce
+     
+      return "Sales by Customer Type"
+      }
+
+    },
+    getPieChart(){
+         const userType = this.userType;
+       if(userType == "marketing"){
+        return "Pizza Loyalty Program Age Breakdown"
+
+      } else if(userType == "sales"){
+        return "Students Enrolled (By Sales Channel)"
+      } else if(userType == "product"){
+       return "Mobile Time Spent Distribution"
+
+      } else if(userType == "eng"){
+        return "Bug Distribution"
+
+      } else{ // should be e-commerce
+     
+      return "Kith.com Purchases (by Traffic Source)”"
+      }
+
+    },
+    getLineGraph(){
+         const userType = this.userType;
+       if(userType == "marketing"){
+        return "In-App Notifications A/B Test"
+      } else if(userType == "sales"){
+       return "Grad vs Undergrad Enrollment"
+
+      } else if(userType == "product"){
+       return "Home Timeline A/B Test"
+
+      } else if(userType == "eng"){
+          return "Data Accuracy "
+
+      } else{ // should be e-commerce
+      return "Top Clothing Products Purchased"
+
+      }
+
+    }
+  }
 };
+
+
 </script>
 <style></style>
